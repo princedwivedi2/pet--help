@@ -1,0 +1,22 @@
+<!-- This is a placeholder SVG for the README banner. Replace with an actual image -->
+<svg width="1200" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#FFF8F3"/>
+  <text x="50%" y="50%" font-family="Arial" font-size="48" fill="#F76C6C" text-anchor="middle" dominant-baseline="middle">
+    Pet Help - Modern Pet Care Assistant
+  </text>
+  <!-- Simple pet icon -->
+  <circle cx="200" cy="150" r="70" fill="#FFD369"/>
+  <circle cx="170" cy="120" r="15" fill="#6C757D"/>
+  <circle cx="230" cy="120" r="15" fill="#6C757D"/>
+  <path d="M160 180 Q 200 220 240 180" stroke="#6C757D" stroke-width="8" fill="none"/>
+  <!-- Simple paw prints -->
+  <circle cx="900" cy="100" r="20" fill="#F76C6C" fill-opacity="0.5"/>
+  <circle cx="930" cy="80" r="15" fill="#F76C6C" fill-opacity="0.5"/>
+  <circle cx="950" cy="110" r="15" fill="#F76C6C" fill-opacity="0.5"/>
+  <circle cx="920" cy="130" r="15" fill="#F76C6C" fill-opacity="0.5"/>
+  
+  <circle cx="800" cy="200" r="20" fill="#F76C6C" fill-opacity="0.5"/>
+  <circle cx="830" cy="180" r="15" fill="#F76C6C" fill-opacity="0.5"/>
+  <circle cx="850" cy="210" r="15" fill="#F76C6C" fill-opacity="0.5"/>
+  <circle cx="820" cy="230" r="15" fill="#F76C6C" fill-opacity="0.5"/>
+</svg>
