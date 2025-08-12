@@ -1,10 +1,12 @@
 import { motion, useAnimationControls } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PetIcon from '../components/PetIcon';
 import { animations } from '../utils/theme';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 export default function Landing() {
+  const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
   const petIconControls = useAnimationControls();
   const sectionRef = useRef(null);
@@ -90,16 +92,16 @@ export default function Landing() {
             Your friendly AI-powered assistant for pet care, vet finding, and emergency help.
           </motion.p>
           
-          <motion.a
+          <motion.button
             variants={itemVariants}
-            href="#chat"
+            onClick={() => navigate('/chat')}
             className="px-8 py-3 rounded-full font-bold shadow-elevated
                       bg-primary-gradient text-white hover:shadow-glow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Start Chatting
-          </motion.a>
+          </motion.button>
         </motion.div>
         
         {/* Scroll indicator */}

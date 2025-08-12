@@ -1,19 +1,24 @@
 // Theme utility for easy access to colors, shadows, and radii
 export const theme = {
   colors: {
-    background: 'linear-gradient(135deg, #FFF8F3 0%, #FDF6F0 100%)',
-    backgroundSolid: '#FFF8F3',
-    primary: '#F76C6C',
-    primaryLight: '#FF9A9A', // Updated per requirements
+    // Core theme colors matching tailwind config
+    primary: '#F28B82',
+    accent: '#FDD663',
+    background: '#FDF6F0',
+    secondary: '#7E8A97',
+    success: '#81C995',
+    danger: '#FF6F61',
+    
+    // Gradients and variations
+    backgroundGradient: 'linear-gradient(135deg, #FDF6F0 0%, #FDF6F0 100%)',
+    primaryLight: '#FF9A9A',
     primaryDark: '#D65A5A',
-    primaryGradient: 'linear-gradient(135deg, #F76C6C 0%, #FF9A9A 100%)',
-    accent: '#FFD369',
+    primaryGradient: 'linear-gradient(135deg, #F28B82 0%, #FF9A9A 100%)',
     accentLight: '#FFE08A',
     accentDark: '#E6B856',
-    accentGradient: 'linear-gradient(135deg, #FFD369 0%, #FFE08A 100%)',
-    secondary: '#6C757D',
-    success: '#4CAF50',
-    danger: '#FF4C4C',
+    accentGradient: 'linear-gradient(135deg, #FDD663 0%, #FFE08A 100%)',
+    
+    // Utility colors
     white: '#FFFFFF',
     black: '#000000',
     transparent: 'transparent',
@@ -26,11 +31,11 @@ export const theme = {
     full: '9999px',
   },
   boxShadow: {
+    card: '0 2px 8px rgba(0,0,0,0.1)',
+    elevated: '0 4px 12px rgba(0,0,0,0.15)',
+    glow: '0 0 8px rgba(242,139,130,0.6)',
     soft: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    elevated: '0 8px 12px rgba(0, 0, 0, 0.15)',
-    card: '0 10px 30px -15px rgba(0,0,0,0.1)',
-    button: '0 5px 15px -5px rgba(247,108,108,0.4)',
-    glow: '0 0 15px rgba(247, 108, 108, 0.5)',
+    button: '0 5px 15px -5px rgba(242,139,130,0.4)',
     glowAccent: '0 0 15px rgba(255, 211, 105, 0.5)',
   },
   typography: {

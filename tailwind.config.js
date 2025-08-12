@@ -9,23 +9,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#FFF8F3',
-        'background-gradient': 'linear-gradient(135deg, #FFF8F3 0%, #FDF6F0 100%)',
-        primary: {
-          DEFAULT: '#F76C6C',
-          light: '#FF9A9A', // Updated per requirements
-          dark: '#D65A5A',
-          gradient: 'linear-gradient(135deg, #F76C6C 0%, #FF9A9A 100%)',
-        },
-        accent: {
-          DEFAULT: '#FFD369',
-          light: '#FFE08A',
-          dark: '#E6B856',
-          gradient: 'linear-gradient(135deg, #FFD369 0%, #FFE08A 100%)',
-        },
-        secondary: '#6C757D',
-        success: '#4CAF50',
-        danger: '#FF4C4C',
+        primary: '#F28B82',
+        accent: '#FDD663',
+        background: '#FDF6F0',
+        secondary: '#7E8A97',
+        success: '#81C995',
+        danger: '#FF6F61',
+        'background-gradient': 'linear-gradient(135deg, #FDF6F0 0%, #FDF6F0 100%)',
+        // Legacy color structure kept for backward compatibility
+        'primary-light': '#FF9A9A',
+        'primary-dark': '#D65A5A',
+        'primary-gradient': 'linear-gradient(135deg, #F28B82 0%, #FF9A9A 100%)',
+        'accent-light': '#FFE08A',
+        'accent-dark': '#E6B856',
+        'accent-gradient': 'linear-gradient(135deg, #FDD663 0%, #FFE08A 100%)',
       },
       borderRadius: {
         'lg': '1.25rem',
@@ -33,16 +30,17 @@ export default {
         'full': '9999px',
       },
       boxShadow: {
+        card: '0 2px 8px rgba(0,0,0,0.1)',
+        elevated: '0 4px 12px rgba(0,0,0,0.15)',
+        glow: '0 0 8px rgba(242,139,130,0.6)',
         soft: '0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01)',
-        card: '0 10px 30px -15px rgba(0,0,0,0.1)',
         button: '0 5px 15px -5px rgba(242,139,130,0.4)',
-        elevated: '0 15px 35px -15px rgba(0,0,0,0.15), 0 5px 15px -5px rgba(0,0,0,0.08)',
-        glow: '0 0 15px rgba(247, 108, 108, 0.5)',
         'glow-accent': '0 0 15px rgba(255, 211, 105, 0.5)',
       },
       fontFamily: {
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Nunito', 'sans-serif'],
         sans: ['Nunito', ...fontFamily.sans],
-        heading: ['Poppins', ...fontFamily.sans],
       },
       fontSize: {
         'responsive-base': 'clamp(1rem, 1.5vw, 1.125rem)',

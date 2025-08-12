@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-// Google Maps API integration (replace YOUR_API_KEY)
-const GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY'; // Replace with your real API key
+// Google Maps API integration using environment variable
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const MAP_CENTER = { lat: 37.7749, lng: -122.4194 };
 
 export default function VetFinder() {
