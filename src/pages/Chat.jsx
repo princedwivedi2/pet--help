@@ -5,6 +5,7 @@ import ChatMessage from '../components/chat/ChatMessage';
 import ChatInput from '../components/chat/ChatInput';
 import TypingIndicator from '../components/chat/TypingIndicator';
 import PetReaction from '../components/chat/PetReaction';
+import PageTransition from '../components/PageTransition';
 import useChat from '../hooks/useChat';
 
 export default function Chat() {
@@ -114,14 +115,12 @@ export default function Chat() {
   };
 
   return (
-    <motion.section 
-      className="min-h-screen flex flex-col items-center py-8 px-4 relative"
-      style={{
-        background: 'radial-gradient(circle at top right, rgba(255, 207, 175, 0.3), transparent 40%), radial-gradient(circle at bottom left, rgba(204, 235, 255, 0.4), transparent 40%), linear-gradient(135deg, #FFF8F3 0%, #FDF6F0 100%)'
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+    <PageTransition type="slideUp">
+      <motion.section 
+        className="min-h-screen flex flex-col items-center py-8 px-4 relative"
+        style={{
+          background: 'radial-gradient(circle at top right, rgba(255, 207, 175, 0.3), transparent 40%), radial-gradient(circle at bottom left, rgba(204, 235, 255, 0.4), transparent 40%), linear-gradient(135deg, #FFF8F3 0%, #FDF6F0 100%)'
+        }}
     >
       {/* Decorative elements */}
       <motion.div
@@ -511,5 +510,6 @@ export default function Chat() {
         </AnimatePresence>
       </Section>
     </motion.section>
+    </PageTransition>
   );
 }

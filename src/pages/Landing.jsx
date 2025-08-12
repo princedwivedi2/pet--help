@@ -10,6 +10,8 @@ import {
   AlertIcon 
 } from '../components/illustrations';
 
+import PageTransition from '../components/PageTransition';
+
 export default function Landing() {
   const navigate = useNavigate();
   
@@ -78,8 +80,9 @@ export default function Landing() {
   ];
 
   return (
-    <main className="overflow-visible">
-      {/* Hero Section */}
+    <PageTransition type="fade">
+      <main className="overflow-visible">
+        {/* Hero Section */}
       <Section 
         className="min-h-screen flex flex-col items-center justify-center py-16 md:py-24 relative overflow-hidden" 
         fullWidth
@@ -357,5 +360,6 @@ export default function Landing() {
         </div>
       </Section>
     </main>
+    </PageTransition>
   );
 }

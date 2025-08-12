@@ -1,16 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, usePresence } from 'framer-motion';
 import { theme } from '../utils/theme';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Header({ 
   pages = [], 
-  activePage = 0, 
-  onPageChange = () => {}, 
   onEmergencyClick = () => {}, 
   className = "" 
 }) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPresent, safeToRemove] = usePresence();
+  
+  // Determine active page based on current location
+  const activePage = pages.findIndex(p => p.path === location.pathname);
+  
+  // Animation variants - will persist across page navigations
+  const headerVariants = {
+    initial: { y: -100, opacity: 0 },
+    animate: { 
+      y: 0, 
+      opacity: 1,
+      transition: { 
+        type: 'spring',
+        stiffness: 50,
+        damping: 15
+      }
+    },
+    exit: {
+      y: -100,
+      opacity: 0
+    }
+  };
 
   // Track scroll position for navbar transparency effect
   useEffect(() => {
@@ -38,14 +61,12 @@ export default function Header({
           max-w-4xl w-full flex items-center justify-between transition-all duration-300
           ${isScrolled ? 'shadow-elevated' : 'shadow-soft'}
         `}
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ 
-          type: 'spring',
-          stiffness: 50,
-          damping: 15,
-          delay: 0.2
-        }}
+        key={`header-${location.pathname}`}
+        variants={headerVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        layoutId="main-header" // This ensures animation consistency across route changes
       >
         {/* Logo */}
         <div className="flex items-center">
@@ -60,21 +81,21 @@ export default function Header({
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-2">
           {pages.map((p, i) => (
-            <motion.button
-              key={p.name}
-              className={`
-                px-4 py-2 rounded-full font-heading text-sm transition
-                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                ${i === activePage 
-                  ? 'bg-primary-gradient text-white shadow-button' 
-                  : 'bg-white/50 text-secondary hover:bg-primary-light/10'}
-              `}
-              onClick={() => onPageChange(i)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {p.name}
-            </motion.button>
+            <Link key={p.name} to={p.path}>
+              <motion.button
+                className={`
+                  px-4 py-2 rounded-full font-heading text-sm transition
+                  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                  ${i === activePage 
+                    ? 'bg-primary-gradient text-white shadow-button' 
+                    : 'bg-white/50 text-secondary hover:bg-primary-light/10'}
+                `}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {p.name}
+              </motion.button>
+            </Link>
           ))}
           <motion.button
             className="

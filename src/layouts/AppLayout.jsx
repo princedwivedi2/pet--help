@@ -23,11 +23,18 @@ export default function AppLayout() {
       "Sniffing out the best information..."
     ];
     
+    // Track navigation with a unique key for each path
+    const navigationKey = `navigation-${location.pathname}-${Date.now()}`;
+    sessionStorage.setItem('last-navigation', navigationKey);
+    
     setShowLoader(true);
     setLoadingMessage(messages[Math.floor(Math.random() * messages.length)]);
     
     const timer = setTimeout(() => {
-      setShowLoader(false);
+      // Only hide loader if this is still the latest navigation
+      if (sessionStorage.getItem('last-navigation') === navigationKey) {
+        setShowLoader(false);
+      }
     }, 800);
     
     return () => clearTimeout(timer);
@@ -70,8 +77,6 @@ export default function AppLayout() {
 
       <Header 
         pages={pages} 
-        activePage={activePage} 
-        onPageChange={handlePageChange} 
         onEmergencyClick={handleEmergencyClick}
         className="relative z-50" 
       />
@@ -98,7 +103,9 @@ export default function AppLayout() {
       </AnimatePresence>
       
       <main className="relative z-10 flex-grow">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <Outlet />
+        </AnimatePresence>
       </main>
       
       {/* Footer with creator info */}

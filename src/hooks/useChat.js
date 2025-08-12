@@ -4,6 +4,44 @@ import { respond } from '../lib/chatClient';
 const STORAGE_KEY = 'pethelp.chat.v1';
 
 /**
+ * Detects the emotion in a message based on content analysis
+ * @param {string} content - The message content to analyze
+ * @returns {string} - The detected emotion (happy, concerned, thoughtful)
+ */
+function detectEmotion(content) {
+  if (!content) return '';
+  
+  const lowerContent = content.toLowerCase();
+  
+  // Check for emergency or concerning content
+  if (
+    lowerContent.includes('emergency') || 
+    lowerContent.includes('immediately') || 
+    lowerContent.includes('urgent') ||
+    lowerContent.includes('danger') ||
+    lowerContent.includes('warning') ||
+    lowerContent.includes('⚠️')
+  ) {
+    return 'concerned';
+  }
+  
+  // Check for positive/happy content
+  if (
+    lowerContent.includes('great') || 
+    lowerContent.includes('excellent') || 
+    lowerContent.includes('perfect') ||
+    lowerContent.includes('happy') ||
+    lowerContent.includes('healthy') ||
+    lowerContent.includes('congratulations')
+  ) {
+    return 'happy';
+  }
+  
+  // Default to thoughtful for informational responses
+  return 'thoughtful';
+}
+
+/**
  * Custom hook to manage chat state and interactions
  * 
  * @returns {Object} Chat state and methods
@@ -75,34 +113,63 @@ export default function useChat() {
       time: timestamp.toISOString()
     };
     
-    // Update messages with the user message
-    const next = [...messages, userMessage];
-    setMessages(next);
-    setIsLoading(true);
+    // Update messages with the user message - using functional update to ensure we have latest state
+    setMessages(prevMessages => {
+      const updatedMessages = [...prevMessages, userMessage];
+      // Immediately save to localStorage to preserve state across page navigations
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+      return updatedMessages;
+    });
     
+    setIsLoading(true);
     controllerRef.current = new AbortController();
     
     try {
       console.log("Sending message:", text);
       
-      // Get the assistant response using the next array which includes the user message
-      const reply = await respond(next, controllerRef.current.signal);
+      // Get the current messages to send to the API
+      const currentMessages = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      
+      // Get the assistant response
+      const reply = await respond(currentMessages, controllerRef.current.signal);
       console.log("Received response:", reply);
       
       // Add response to messages
       if (reply?.content) {
-        // Add timestamp to the response
+        // Add timestamp and emotion to the response
+        const emotion = detectEmotion(reply.content);
         const assistantMessage = {
           ...reply,
+          emotion,
           time: new Date().toISOString()
         };
         console.log("Adding assistant response:", assistantMessage);
-        setMessages(prev => [...prev, assistantMessage]);
+        
+        // Use functional update to ensure we have the latest state
+        setMessages(prevMessages => {
+          const updatedMessages = [...prevMessages, assistantMessage];
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+          return updatedMessages;
+        });
       }
     } catch (err) {
       if (err.name !== 'AbortError') {
         console.error('Chat error:', err);
         setError('Could not get a response. Try again.');
+        
+        // Add error message to chat for better user experience
+        setMessages(prevMessages => {
+          const errorMessage = {
+            role: 'assistant',
+            content: "I'm sorry, I encountered an error while processing your request. Please try again or refresh the page if the problem persists.",
+            emotion: 'concerned',
+            time: new Date().toISOString(),
+            isError: true
+          };
+          const updatedMessages = [...prevMessages, errorMessage];
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedMessages));
+          return updatedMessages;
+        });
       }
     } finally {
       setIsLoading(false);
