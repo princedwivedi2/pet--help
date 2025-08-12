@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .paw {
+      fill: #F28B82;
+      transform-origin: center;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.7; }
+    }
+    
+    @keyframes appear {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    #pad-main {
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    
+    #pad-1 {
+      animation: appear 0.5s ease-out forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+      transform: scale(0);
+    }
+    
+    #pad-2 {
+      animation: appear 0.5s ease-out forwards;
+      animation-delay: 0.4s;
+      opacity: 0;
+      transform: scale(0);
+    }
+    
+    #pad-3 {
+      animation: appear 0.5s ease-out forwards;
+      animation-delay: 0.6s;
+      opacity: 0;
+      transform: scale(0);
+    }
+    
+    #pad-4 {
+      animation: appear 0.5s ease-out forwards;
+      animation-delay: 0.8s;
+      opacity: 0;
+      transform: scale(0);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .paw {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+      }
+    }
+  </style>
+  
+  <!-- Main Pad -->
+  <ellipse id="pad-main" class="paw" cx="50" cy="65" rx="20" ry="18"/>
+  
+  <!-- Toe Pads -->
+  <ellipse id="pad-1" class="paw" cx="30" cy="40" rx="12" ry="10"/>
+  <ellipse id="pad-2" class="paw" cx="70" cy="40" rx="12" ry="10"/>
+  <ellipse id="pad-3" class="paw" cx="25" cy="55" rx="10" ry="8"/>
+  <ellipse id="pad-4" class="paw" cx="75" cy="55" rx="10" ry="8"/>
+</svg>

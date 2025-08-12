@@ -42,12 +42,12 @@ export default function Button({
     lg: "px-8 py-3 text-lg"
   };
   
-  // Variant classes - using theme colors from tailwind config
+  // Variant classes - using theme colors from tailwind config with improved accessibility
   const variantClasses = {
-    primary: "bg-primary text-white shadow-button hover:shadow-glow focus:ring-primary",
-    secondary: "bg-secondary text-white shadow-button hover:bg-secondary/90 focus:ring-secondary",
-    outline: "bg-transparent border-2 border-primary text-primary hover:bg-primary/5 focus:ring-primary",
-    danger: "bg-danger text-white shadow-button hover:bg-danger/90 focus:ring-danger",
+    primary: "bg-primary text-white shadow-button hover:shadow-glow focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:outline-none",
+    secondary: "bg-secondary text-white shadow-button hover:bg-secondary/90 focus:ring-2 focus:ring-offset-2 focus:ring-secondary focus:outline-none",
+    outline: "bg-transparent border-2 border-primary text-primary hover:bg-primary/5 focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:outline-none",
+    danger: "bg-danger text-white shadow-button hover:bg-danger/90 focus:ring-2 focus:ring-offset-2 focus:ring-danger focus:outline-none",
   };
   
   // Animation settings - disable if user prefers reduced motion
@@ -102,14 +102,17 @@ export default function Button({
     );
   }
 
-  // Default button rendering
+  // Default button rendering with enhanced accessibility
   return (
     <motion.button
       type={type}
       onClick={onClick}
       style={{ position: 'relative' }}
       disabled={disabled}
+      aria-disabled={disabled}
       aria-label={ariaLabel}
+      tabIndex={disabled ? -1 : 0}
+      role="button"
       {...animationProps}
       {...props}
     >

@@ -6,6 +6,7 @@ import { formatTime } from '../../utils/dateUtils';
 
 /**
  * ChatMessage component displays a single message in the chat
+ * with emotional UI elements and pet-friendly animations
  * 
  * @param {Object} props
  * @param {string} props.role - The role of the message sender ('user', 'assistant', 'system')
@@ -14,6 +15,7 @@ import { formatTime } from '../../utils/dateUtils';
  * @param {React.ReactNode} props.avatar - Optional avatar component for the assistant
  * @param {boolean} props.isLast - Whether this is the last message in the chat
  * @param {string} props.className - Additional CSS classes for the message bubble
+ * @param {string} props.emotion - Optional emotion tag for assistant messages ('happy', 'concerned', 'thoughtful', etc.)
  * @returns {JSX.Element}
  */
 export default function ChatMessage({ 
@@ -23,9 +25,28 @@ export default function ChatMessage({
   avatar,
   isLast = false,
   className = "",
+  emotion = "",
 }) {
   const prefersReducedMotion = useReducedMotion();
   const isUser = role === 'user';
+  
+  // Determine emotion-based styling
+  const getEmotionStyles = () => {
+    if (isUser) return {};
+    
+    switch(emotion) {
+      case 'happy':
+        return { borderColor: 'border-success/40', background: 'bg-success/5' };
+      case 'concerned':
+        return { borderColor: 'border-primary/40', background: 'bg-primary/5' };
+      case 'thoughtful':
+        return { borderColor: 'border-accent/40', background: 'bg-accent/5' };
+      default:
+        return {}; 
+    }
+  };
+  
+  const emotionStyles = getEmotionStyles();
   
   // Animation variants
   const messageVariants = {
@@ -71,9 +92,22 @@ export default function ChatMessage({
           className={`px-4 py-3 rounded-2xl ${
             isUser 
               ? 'bg-primary text-white rounded-br-none' 
-              : 'bg-white/80 glassmorphism shadow-card rounded-bl-none'
+              : `${emotionStyles.background || 'bg-white/80'} glassmorphism shadow-card rounded-bl-none ${emotionStyles.borderColor ? 'border' : ''}`
           } ${isLast ? 'animate-pulse-subtle' : ''} ${className}`}
         >
+          {!isUser && emotion && (
+            <div className="mb-1">
+              <span className={`inline-block px-2 py-0.5 text-xs rounded-full ${
+                emotion === 'happy' ? 'bg-success/10 text-success' :
+                emotion === 'concerned' ? 'bg-primary/10 text-primary' :
+                'bg-accent/10 text-accent'
+              }`}>
+                {emotion === 'happy' ? '😊 Happy' : 
+                 emotion === 'concerned' ? '😟 Concerned' : 
+                 emotion === 'thoughtful' ? '🤔 Thoughtful' : emotion}
+              </span>
+            </div>
+          )}
           <p className="whitespace-pre-wrap break-words">
             {content}
           </p>
@@ -98,4 +132,5 @@ ChatMessage.propTypes = {
   avatar: PropTypes.node,
   isLast: PropTypes.bool,
   className: PropTypes.string,
+  emotion: PropTypes.oneOf(['happy', 'concerned', 'thoughtful', ''])
 };
