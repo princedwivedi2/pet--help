@@ -67,6 +67,10 @@ export default {
           '0%, 100%': { transform: 'scale(1)', opacity: '1' },
           '50%': { transform: 'scale(1.05)', opacity: '0.8' },
         },
+        pulseSubtle: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.92' },
+        },
         drop: {
           '0%': { transform: 'translateY(-20px) scale(0.9)', opacity: '0' },
           '70%': { transform: 'translateY(5px) scale(1.05)', opacity: '1' },
@@ -82,6 +86,7 @@ export default {
         float: 'float 3s ease-in-out infinite',
         shake: 'shake 0.8s ease-in-out infinite',
         pulse: 'pulse 2s ease-in-out infinite',
+        'pulse-subtle': 'pulseSubtle 2s ease-in-out infinite',
         drop: 'drop 0.6s ease-out',
         glow: 'glow 2s ease-in-out infinite',
         fadeUp: 'fadeUp 0.8s ease-out forwards',
@@ -163,6 +168,12 @@ export default {
           '&::-webkit-scrollbar': {
             display: 'none',
           },
+        },
+        '.bg-pattern-paws': {
+          backgroundImage: 'url("/assets/patterns/paw-pattern.svg")',
+          backgroundSize: '120px',
+          backgroundRepeat: 'repeat',
+          backgroundOpacity: '0.05',
         },
       };
       

@@ -69,6 +69,49 @@ body {
   box-shadow: 0 0 15px rgba(255, 211, 105, 0.5);
 }
 
+/* Feature cards */
+.feature-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px -15px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+}
+
+.feature-card:hover {
+  box-shadow: 0 15px 35px -15px rgba(0,0,0,0.15), 0 5px 15px -5px rgba(0,0,0,0.08);
+}
+
+.feature-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1F2937;
+  margin-bottom: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.feature-description {
+  color: #6C757D;
+}
+
+/* Gradient text */
+.gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(135deg, #F76C6C 0%, #FF8A8A 100%);
+}
+
 /* Glassmorphism */
 .glassmorphism {
   background-color: rgba(255, 255, 255, 0.5);

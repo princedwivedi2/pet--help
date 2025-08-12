@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { theme } from '../utils/theme';
 
-export default function Header({ pages, activePage, onPageChange, onEmergencyClick }) {
+export default function Header({ 
+  pages = [], 
+  activePage = 0, 
+  onPageChange = () => {}, 
+  onEmergencyClick = () => {}, 
+  className = "" 
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -25,7 +31,7 @@ export default function Header({ pages, activePage, onPageChange, onEmergencyCli
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-navbar flex justify-center pointer-events-none">
+    <header className={`fixed top-0 left-0 right-0 z-navbar flex justify-center pointer-events-none ${className}`}>
       <motion.nav 
         className={`
           pointer-events-auto glassmorphism-navbar px-4 py-2 my-4 mx-4 

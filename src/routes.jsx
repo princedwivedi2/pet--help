@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AppLayout from './layouts/AppLayout';
 import Landing from './pages/Landing';
 import Chat from './pages/Chat';
 import SymptomChecker from './pages/SymptomChecker';
@@ -11,11 +12,13 @@ export default function AppRoutes() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/symptoms" element={<SymptomChecker />} />
-        <Route path="/vets" element={<VetFinder />} />
-        <Route path="/files" element={<FileUpload />} />
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Landing />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/symptoms" element={<SymptomChecker />} />
+          <Route path="/vets" element={<VetFinder />} />
+          <Route path="/files" element={<FileUpload />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
